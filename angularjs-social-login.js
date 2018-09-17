@@ -216,3 +216,5 @@ socialLogin.directive("fbLogin", ['$rootScope', 'social', 'socialLoginService', 
 		}
 	}
 }]);
+
+//Picture Large
