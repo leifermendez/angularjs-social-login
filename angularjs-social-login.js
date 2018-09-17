@@ -178,7 +178,7 @@ socialLogin.directive("fbLogin", ['$rootScope', 'social', 'socialLoginService', 
 			ele.on('click', function(){
 				var fetchUserDetails = function(){
 					var deferred = $q.defer();
-					FB.api('/me?fields=name,email,picture', function(res){
+					FB.api('/me?fields=name,email,picture.type(large)', function(res){
 						if(!res || res.error){
 							deferred.reject('Error occured while fetching user details.');
 						}else{
