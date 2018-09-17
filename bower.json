@@ -1,0 +1,15 @@
+{
+  "name": "angularjs-social-login",
+  "homepage": "https://github.com/leifermendez/angularjs-social-login",
+  "version": "2.6.2",
+  "_release": "2.6.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.6.2",
+    "commit": "d3cc3c309baf082a43626878c3a06f6aef47aa0a"
+  },
+  "_source": "https://github.com/leifermendez/angularjs-social-login.git",
+  "_target": "^2.6.2",
+  "_originalSource": "leifermendez/angularjs-social-login",
+  "_direct": true
+}
