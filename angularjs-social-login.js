@@ -134,7 +134,7 @@ socialLogin.directive("gLogin", ['$rootScope', 'social', 'socialLoginService',
 		replace: true,
 		link: function(scope, ele, attr){
 			ele.on('click', function(){
-				var fetchUserDetails = function(){
+				const fetchUserDetails = function(){
 					var currentUser = scope.gauth.currentUser.get();
 					var profile = currentUser.getBasicProfile();
 					var idToken = currentUser.getAuthResponse().id_token;
@@ -175,6 +175,7 @@ socialLogin.directive("fbLogin", ['$rootScope', 'social', 'socialLoginService', 
 		scope: {},
 		replace: true,
 		link: function(scope, ele, attr){
+			
 			function _login(){
 				FB.login(function(response) {
 					if(response.status === "connected"){
@@ -186,25 +187,28 @@ socialLogin.directive("fbLogin", ['$rootScope', 'social', 'socialLoginService', 
 					}
 				}, {scope: 'email', auth_type: 'rerequest'});
 			}
+
+			var fetchUserDetails = function(){
+				var deferred = $q.defer();
+				FB.api('/me?fields=name,email,picture.type(large)', function(res){
+					if(!res || res.error){
+						deferred.reject('Error occured while fetching user details.');
+					}else{
+						deferred.resolve({
+							name: res.name, 
+							email: res.email, 
+							uid: res.id, 
+							provider: "facebook", 
+							imageUrl: res.picture.data.url
+						});
+					}
+				});
+				return deferred.promise;
+			}
+			
 			ele.on('click', function(){
 				try {
-					var fetchUserDetails = function(){
-						var deferred = $q.defer();
-						FB.api('/me?fields=name,email,picture.type(large)', function(res){
-							if(!res || res.error){
-								deferred.reject('Error occured while fetching user details.');
-							}else{
-								deferred.resolve({
-									name: res.name, 
-									email: res.email, 
-									uid: res.id, 
-									provider: "facebook", 
-									imageUrl: res.picture.data.url
-								});
-							}
-						});
-						return deferred.promise;
-					}
+	
 					const _fb_login_status = FB.getLoginStatus()
 				
 					if(_fb_login_status && FB.getLoginStatus()){
